@@ -21,12 +21,16 @@
     puts "編集したいファイルの拡張子を除いたファイル名を入力してください。"
     file_name = gets.chomp
     
-    puts "編集する内容を入力してください。", "Ctrl+Dで保存します。"
-    file_content = STDIN.read
-    existfile = CSV.open("#{file_name}.csv", "a") do |csv|
-      csv << ["#{file_content}"]
+    if File.file?("./#{file_name}.csv")
+      puts "編集する内容を入力してください。", "Ctrl+Dで保存します。"
+      file_content = STDIN.read
+      existfile = CSV.open("#{file_name}.csv", "a") do |csv|
+        csv << ["#{file_content}"]
+      end
+    else
+      puts "ファイルが見つかりません。既存のファイル名を入力してください。"
     end
-    
+  
   else
     puts "1か2の数字を入力してください。"
   end
